@@ -15,7 +15,7 @@ namespace SocialMedia.Models.Database
             if (int.Parse(year) < 19) year = "Other";
             else year = "Y" + year;
             
-            Enum.TryParse(year, out YearEnum result);
+            Enum.TryParse(year, out YearEnum result);  // turn a string into its enum and store result in result
             Data = result;
         }
 

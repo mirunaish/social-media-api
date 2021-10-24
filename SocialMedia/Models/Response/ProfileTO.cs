@@ -5,7 +5,7 @@ using SocialMedia.Models.Database.Enums;
 
 namespace SocialMedia.Models.Response
 {
-    public class ProfileTO // transport object, returned by api as json
+    public class ProfileTO  // transport object, returned by api as json
     {
         public int Id { get; set; }
 
@@ -24,13 +24,14 @@ namespace SocialMedia.Models.Response
         public string Quote { get; set; }
         public string FavoriteShoe { get; set; }
         public string FavoriteArtist { get; set; }
-        public string FavoriteColor { get; set; } // maybe hex code
+        public string FavoriteColor { get; set; }
         public PhoneEnum PhoneType { get; set; }
         
         public static ProfileTO From(Profile profile)
         {
             return new()
             {
+                Id = profile.Id,
                 Name = profile.Name,
                 PictureLink = profile.PictureLink,
                 Gender = profile.Gender,

@@ -24,17 +24,17 @@ namespace SocialMedia.Controllers
         // C
         [HttpPost("")]
         public async Task<ActionResult<ProfileTO>> Create([FromBody] CreateProfileRequestModel requestModel)
-        { 
+        {
             // Ok returns ActionResult, Task because async
-            _logger.LogDebug("ProfileController received POST request");
+            _logger.LogInformation("ProfileController: received POST request");
             var result = await _profileService.Create(requestModel);
-            return Ok(result);
+            return Ok(result);  // 200 http response
         }
         
         [HttpPost("all")]
         public async Task<ActionResult> CreateMultiple([FromBody] CreateProfileRequestModel[] requestModels)
         {
-            _logger.LogDebug("ProfileController received POST request");
+            _logger.LogInformation("ProfileController: received POST all request");
             foreach (var model in requestModels)
             {
                 await _profileService.Create(model);
@@ -46,8 +46,15 @@ namespace SocialMedia.Controllers
         [HttpGet("")]
         public async Task<ActionResult<IList<ProfileTO>>> Read()
         {
-            _logger.LogDebug("ProfileController received GET request");
+            _logger.LogInformation("ProfileController: received GET request");
             return Ok(await _profileService.Read());
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<ProfileTO>> Get(int id)
+        {
+            _logger.LogInformation($"ProfileController: received GET request for id {id}");
+            return Ok(await _profileService.Get(id));
         }
     }
 }

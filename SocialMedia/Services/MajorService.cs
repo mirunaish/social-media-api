@@ -19,7 +19,7 @@ namespace SocialMedia.Services
 
         public async Task<Major> Create(string name)
         {
-            _logger.LogDebug($"MajorService: Creating major {name}");
+            _logger.LogInformation($"MajorService: Creating Major {name}");
             Major major = new Major {Name = name};
             await _repository.Create(major);
             return major;
@@ -27,7 +27,7 @@ namespace SocialMedia.Services
         
         public async Task<Major> Get(string name)
         {
-            _logger.LogDebug($"MajorService: Getting StudyProgram with name '{name}'");
+            _logger.LogInformation($"MajorService: Getting Major with name '{name}'");
             return await _repository.Get(name);
         }
     }

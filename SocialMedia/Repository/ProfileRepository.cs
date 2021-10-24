@@ -22,15 +22,21 @@ namespace SocialMedia.Repository
 
         public async Task Create(Profile profile)
         {
-            _logger.LogDebug("ProfileRepository: Creating profile for " + profile.Name);
+            _logger.LogInformation("ProfileRepository: Creating profile for " + profile.Name);
             await _context.Profiles.AddAsync(profile);
             await _context.SaveChangesAsync();
         }
 
         public async Task<IList<Profile>> Read()
         {
-            _logger.LogDebug("ProfileRepository: Reading all profiles");
+            _logger.LogInformation("ProfileRepository: Reading all profiles");
             return await IncludeSubtables(_context.Profiles).ToListAsync();
+        }
+        
+        public async Task<Profile> Get(int id)
+        {
+            _logger.LogInformation($"ProfileRepository: Getting profile with id {id}");
+            return await IncludeSubtables(_context.Profiles).FirstOrDefaultAsync(p => p.Id == id);
         }
 
         private IQueryable<Profile> IncludeSubtables(IQueryable<Profile> query)

@@ -19,7 +19,7 @@ namespace SocialMedia.Services
         // don't need a StudyProgramService because ef takes care of that for me
 
         private readonly ProfileRepository _repository;
-        private readonly ILogger<ProfileService>_logger;
+        private readonly ILogger<ProfileService> _logger;
 
         public ProfileService(ProfileRepository repository, ILogger<ProfileService> logger, MajorService majorService)
         {
@@ -30,7 +30,7 @@ namespace SocialMedia.Services
 
         public async Task<ProfileTO> Create(CreateProfileRequestModel requestModel)
         {
-            _logger.LogDebug("ProfileService received POST");  // TODO fix logger messages
+            _logger.LogInformation($"ProfileService: Creating profile for {requestModel.Name}");
 
             // parse enums
             Enum.TryParse(requestModel.Gender, out GenderEnum gender);
@@ -127,9 +127,15 @@ namespace SocialMedia.Services
         
         public async Task<IList<ProfileTO>> Read()
         {
-            _logger.LogDebug("ProfileService: Reading all profiles");
+            _logger.LogInformation("ProfileService: Reading all profiles");
             IList<Profile> entities = await _repository.Read();
             return entities.Select(p => ProfileTO.From(p)).ToList();
+        }
+
+        public async Task<ProfileTO> Get(int id)
+        {
+            _logger.LogInformation($"ProfileService: Reading profile with id {id}");
+            return ProfileTO.From(await _repository.Get(id));
         }
     }
 }

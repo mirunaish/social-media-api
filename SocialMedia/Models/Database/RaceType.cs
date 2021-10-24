@@ -6,7 +6,6 @@ namespace SocialMedia.Models.Database
 {
     public class RaceType
     {
-
         private byte Data { get; set; } // built based on the dictionary
 
         public RaceType(byte data)
